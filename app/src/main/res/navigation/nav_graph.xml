@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pointsTableFragment">
+
+    <fragment
+        android:id="@+id/pointsTableFragment"
+        android:name="com.varma.hemanshu.starwars_blasters.ui.fragment.PointsTableFragment"
+        android:label="Points Table"
+        tools:layout="@layout/fragment_points_table">
+        <action
+            android:id="@+id/action_pointsTableFragment_to_matchDetailsFragment"
+            app:destination="@id/matchDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchDetailsFragment"
+        android:name="com.varma.hemanshu.starwars_blasters.ui.fragment.MatchDetailsFragment"
+        android:label="Matches"
+        tools:layout="@layout/fragment_match_details" />
+</navigation>

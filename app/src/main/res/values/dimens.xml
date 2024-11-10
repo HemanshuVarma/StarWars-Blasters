@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Margin/Padding dimensions-->
+    <dimen name="margin_small">12dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+
+    <!--Font dimensions-->
+    <dimen name="text_large">18sp</dimen>
+
+    <!--Misc dimensions-->
+    <dimen name="ic_dimen">64dp</dimen>
+</resources>
