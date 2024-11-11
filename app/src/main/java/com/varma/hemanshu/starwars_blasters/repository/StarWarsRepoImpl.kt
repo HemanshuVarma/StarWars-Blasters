@@ -1,8 +1,8 @@
-package com.varma.hemanshu.starwars_blasters.ui.repository
+package com.varma.hemanshu.starwars_blasters.repository
 
 import android.content.Context
-import com.varma.hemanshu.starwars_blasters.ui.model.MatchDetailsResponse
-import com.varma.hemanshu.starwars_blasters.ui.model.PlayersInfoResponse
+import com.varma.hemanshu.starwars_blasters.model.MatchDetailsResponse
+import com.varma.hemanshu.starwars_blasters.model.PlayersInfoResponse
 
 class StarWarsRepoImpl : BaseRepo() {
 

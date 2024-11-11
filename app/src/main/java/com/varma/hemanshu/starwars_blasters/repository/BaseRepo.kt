@@ -1,4 +1,4 @@
-package com.varma.hemanshu.starwars_blasters.ui.repository
+package com.varma.hemanshu.starwars_blasters.repository
 
 import android.content.Context
 import com.google.gson.Gson

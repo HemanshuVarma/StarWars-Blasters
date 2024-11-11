@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.varma.hemanshu.starwars_blasters.R
 import com.varma.hemanshu.starwars_blasters.databinding.ItemMatchDetailsBinding
-import com.varma.hemanshu.starwars_blasters.ui.model.MatchDetails
+import com.varma.hemanshu.starwars_blasters.model.MatchDetails
 
 class PlayerMatchDetailAdapter(val data: List<MatchDetails?>?, val id: Int) :
     RecyclerView.Adapter<PlayerMatchDetailAdapter.PlayerMatchViewHolder>() {

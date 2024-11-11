@@ -2,49 +2,54 @@ package com.varma.hemanshu.starwars_blasters.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.varma.hemanshu.starwars_blasters.databinding.ItemPlayerInfoBinding
-import com.varma.hemanshu.starwars_blasters.ui.model.PlayerInfo
+import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
 
 class PointsTableAdapter(
-    private val data: List<PlayerInfo?>?,
-    private val itemClick: OnClickListener
-) : RecyclerView.Adapter<PointsTableAdapter.PtsTableViewHolder>() {
+    private val onItemClick: (PlayerInfo) -> Unit
+) : ListAdapter<PlayerInfo, PointsTableAdapter.PtsTableViewHolder>(PlayerInfoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PtsTableViewHolder {
         val binding =
-            ItemPlayerInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPlayerInfoBinding.inflate(LayoutInflater.from(parent.context))
         return PtsTableViewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: PtsTableViewHolder, position: Int) {
-        data?.get(position)?.let { holder.bindViews(it, itemClick) }
-    }
-
-    override fun getItemCount(): Int {
-        return data?.size ?: 0
+        val item = getItem(position)
+        holder.bind(item)
     }
 
     inner class PtsTableViewHolder(
-        private val holder: ItemPlayerInfoBinding,
+        private val binding: ItemPlayerInfoBinding,
         private val context: Context
-    ) :
-        ViewHolder(holder.root) {
+    ) : ViewHolder(binding.root) {
 
-        fun bindViews(items: PlayerInfo, onClickListener: OnClickListener) {
-            holder.tvPlayerName.text = items.name
-            holder.tvPoints.text = items.totalPlay.toString()
-            Glide.with(context).load(items.icon).into(holder.ivPlayer)
-            itemView.tag = items.id
-            holder.root.setOnClickListener {
-                onClickListener.onClick(itemView)
+        fun bind(item: PlayerInfo) {
+            binding.tvPlayerName.text = item.name
+            binding.tvPoints.text = item.totalPlay.toString()
+            Glide.with(context).load(item.icon).into(binding.ivPlayer)
+            itemView.tag = item.id
+            binding.root.setOnClickListener {
+                onItemClick(item)
             }
+            binding.executePendingBindings()
         }
     }
 }
 
+class PlayerInfoDiffCallback : DiffUtil.ItemCallback<PlayerInfo>() {
+    override fun areItemsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean {
+        return oldItem == newItem
+    }
+}
 

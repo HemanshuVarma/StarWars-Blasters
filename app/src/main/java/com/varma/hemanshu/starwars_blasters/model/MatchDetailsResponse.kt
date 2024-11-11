@@ -1,4 +1,4 @@
-package com.varma.hemanshu.starwars_blasters.ui.model
+package com.varma.hemanshu.starwars_blasters.model
 
 data class MatchDetailsResponse(
     val data: List<MatchDetails?>? = null

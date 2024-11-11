@@ -1,13 +1,13 @@
-package com.varma.hemanshu.starwars_blasters.ui.viewmodel
+package com.varma.hemanshu.starwars_blasters.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.varma.hemanshu.starwars_blasters.ui.model.MatchDetails
-import com.varma.hemanshu.starwars_blasters.ui.model.PlayerInfo
-import com.varma.hemanshu.starwars_blasters.ui.repository.StarWarsRepoImpl
+import com.varma.hemanshu.starwars_blasters.model.MatchDetails
+import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
+import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepoImpl
 import kotlinx.coroutines.launch
 
 class StarWarsViewModel(

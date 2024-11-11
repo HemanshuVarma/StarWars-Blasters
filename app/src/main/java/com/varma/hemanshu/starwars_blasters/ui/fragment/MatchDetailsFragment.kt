@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.varma.hemanshu.starwars_blasters.adapter.PlayerMatchDetailAdapter
 import com.varma.hemanshu.starwars_blasters.databinding.FragmentMatchDetailsBinding
-import com.varma.hemanshu.starwars_blasters.ui.viewmodel.StarWarsViewModel
+import com.varma.hemanshu.starwars_blasters.viewmodel.StarWarsViewModel
 
 private const val TAG = "MatchDetailsFragment"
 
