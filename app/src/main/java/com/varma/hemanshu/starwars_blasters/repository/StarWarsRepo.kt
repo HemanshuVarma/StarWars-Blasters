@@ -3,7 +3,7 @@ package com.varma.hemanshu.starwars_blasters.repository
 import android.content.Context
 import com.google.gson.Gson
 import com.varma.hemanshu.starwars_blasters.model.MatchDetailsResponse
-import com.varma.hemanshu.starwars_blasters.model.PlayersInfoResponse
+import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
 import com.varma.hemanshu.starwars_blasters.utils.UiState
 import retrofit2.Response
 import java.io.IOException
@@ -33,7 +33,7 @@ interface StarWarsRepo {
         }
     }
 
-    suspend fun getPlayerInfo(): UiState<PlayersInfoResponse>
+    suspend fun getPlayerInfo(): UiState<List<PlayerInfo>>
 
     suspend fun getMatchDetailsInfo(): UiState<MatchDetailsResponse>
 }

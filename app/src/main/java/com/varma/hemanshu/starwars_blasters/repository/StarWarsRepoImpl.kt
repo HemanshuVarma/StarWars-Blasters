@@ -2,14 +2,14 @@ package com.varma.hemanshu.starwars_blasters.repository
 
 import android.content.Context
 import com.varma.hemanshu.starwars_blasters.model.MatchDetailsResponse
-import com.varma.hemanshu.starwars_blasters.model.PlayersInfoResponse
+import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
 import com.varma.hemanshu.starwars_blasters.remote.SWApiService
 import com.varma.hemanshu.starwars_blasters.utils.UiState
 import retrofit2.Response
 
 class StarWarsRepoImpl(private val apiService: SWApiService) : StarWarsRepo {
 
-    override suspend fun getPlayerInfo(): UiState<PlayersInfoResponse> {
+    override suspend fun getPlayerInfo(): UiState<List<PlayerInfo>> {
         return try {
             val response = apiService.getPlayerInfo()
             if (response.isSuccessful) {
@@ -39,7 +39,7 @@ class StarWarsRepoImpl(private val apiService: SWApiService) : StarWarsRepo {
         }
     }
 
-    fun getPlayersList(context: Context): PlayersInfoResponse? {
+    /*fun getPlayersList(context: Context): PlayersInfoResponse? {
         val playersList =
             fetchDataFromAssets(context, "StarWarsPlayers.json", PlayersInfoResponse::class.java)
         val playerMatchInfo = fetchDataFromAssets(
@@ -80,6 +80,6 @@ class StarWarsRepoImpl(private val apiService: SWApiService) : StarWarsRepo {
         }
 
         return playersList
-    }
+    }*/
 
 }
