@@ -18,6 +18,7 @@ import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
 import com.varma.hemanshu.starwars_blasters.remote.SWApiService
 import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepo
 import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepoImpl
+import com.varma.hemanshu.starwars_blasters.utils.UiState
 import com.varma.hemanshu.starwars_blasters.viewmodel.StarWarsVMFactory
 import com.varma.hemanshu.starwars_blasters.viewmodel.StarWarsViewModel
 
@@ -56,6 +57,23 @@ class PointsTableFragment : Fragment() {
 
         viewModel.playersList.observe(viewLifecycleOwner) { players ->
             players?.let { ptsTableAdapter.submitList(players) }
+        }
+
+        viewModel.playerInfoList.observe(viewLifecycleOwner) { playersInfoState ->
+            Log.d(TAG, "Live Data Response: $playersInfoState")
+            when (playersInfoState) {
+                is UiState.Loading -> {
+                }
+
+                is UiState.Success -> {
+
+                }
+
+                is UiState.Error -> {
+
+                }
+            }
+
         }
     }
 

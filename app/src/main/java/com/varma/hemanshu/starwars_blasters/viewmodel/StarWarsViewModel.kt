@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.varma.hemanshu.starwars_blasters.model.MatchDetails
 import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
+import com.varma.hemanshu.starwars_blasters.model.PlayersInfoResponse
 import com.varma.hemanshu.starwars_blasters.remote.SWApiService
 import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepo
+import com.varma.hemanshu.starwars_blasters.utils.UiState
 import kotlinx.coroutines.launch
 
 class StarWarsViewModel(
@@ -20,6 +22,9 @@ class StarWarsViewModel(
     val playersList: LiveData<List<PlayerInfo?>?> get() = _playersList
 
     var selectedMatchId: MutableLiveData<Int?> = MutableLiveData()
+
+    private val _playersInfoList: MutableLiveData<UiState<PlayersInfoResponse>> = MutableLiveData()
+    val playerInfoList: LiveData<UiState<PlayersInfoResponse>> get() = _playersInfoList
 
 //    fun getPlayersData() {
 //        viewModelScope.launch {
@@ -34,7 +39,8 @@ class StarWarsViewModel(
 
     fun getPlayersData() {
         viewModelScope.launch {
-            repo.getPlayerInfo()
+            _playersInfoList.value = UiState.Loading
+            _playersInfoList.value = repo.getPlayerInfo()
         }
     }
 

@@ -70,6 +70,10 @@ dependencies {
     // Retrofit with Moshi Converter
     implementation(libs.retrofit.moshi)
 
+    // Network Logger
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp.logger.interceptor)
+
     // Gson
     implementation(libs.gson)
 }
