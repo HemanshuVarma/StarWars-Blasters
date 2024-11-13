@@ -7,12 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.varma.hemanshu.starwars_blasters.R
 import com.varma.hemanshu.starwars_blasters.adapter.PointsTableAdapter
+import com.varma.hemanshu.starwars_blasters.api.SWApi
 import com.varma.hemanshu.starwars_blasters.databinding.FragmentPointsTableBinding
 import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
+import com.varma.hemanshu.starwars_blasters.remote.SWApiService
+import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepo
+import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepoImpl
+import com.varma.hemanshu.starwars_blasters.viewmodel.StarWarsVMFactory
 import com.varma.hemanshu.starwars_blasters.viewmodel.StarWarsViewModel
 
 private const val TAG = "PointsTableFragment"
@@ -20,8 +26,9 @@ private const val TAG = "PointsTableFragment"
 class PointsTableFragment : Fragment() {
 
     private lateinit var binding: FragmentPointsTableBinding
-    private val viewModel: StarWarsViewModel by activityViewModels()
+    private lateinit var viewModel: StarWarsViewModel
     private lateinit var ptsTableAdapter: PointsTableAdapter
+    private val repository: StarWarsRepo by lazy { StarWarsRepoImpl(SWApi.retrofitService) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,6 +36,10 @@ class PointsTableFragment : Fragment() {
 
         binding = FragmentPointsTableBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        //init viewmodel factory
+        val vmFactory = StarWarsVMFactory(repository)
+        viewModel = ViewModelProvider(this, vmFactory)[StarWarsViewModel::class.java]
 
         return binding.root
     }

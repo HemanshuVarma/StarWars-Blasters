@@ -1,7 +1,7 @@
 package com.varma.hemanshu.starwars_blasters.model
 
 data class PlayersInfoResponse(
-    val data: List<PlayerInfo?>? = null
+    val data: List<PlayerInfo>
 )
 
 data class PlayerInfo(

@@ -4,32 +4,37 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.varma.hemanshu.starwars_blasters.model.MatchDetails
 import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
-import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepoImpl
+import com.varma.hemanshu.starwars_blasters.remote.SWApiService
+import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepo
 import kotlinx.coroutines.launch
 
 class StarWarsViewModel(
-    private val context: Application
-) : AndroidViewModel(context) {
+    private val repo: StarWarsRepo
+) : ViewModel() {
 
     private val _playersList: MutableLiveData<List<PlayerInfo?>?> = MutableLiveData()
     val playersList: LiveData<List<PlayerInfo?>?> get() = _playersList
 
     var selectedMatchId: MutableLiveData<Int?> = MutableLiveData()
-    private val repo: StarWarsRepoImpl = StarWarsRepoImpl()
+
+//    fun getPlayersData() {
+//        viewModelScope.launch {
+////            SWApi.retrofitService.getMatchInfo()
+//            val sortedPlayers =
+//                repo.getPlayersList(context.applicationContext)?.data?.sortedWith(
+//                    compareByDescending<PlayerInfo?> { it?.totalPlay }.thenBy { it?.name })
+//
+//            _playersList.postValue(sortedPlayers)
+//        }
+//    }
 
     fun getPlayersData() {
         viewModelScope.launch {
-//            SWApi.retrofitService.getMatchInfo()
-            viewModelScope.launch {
-                val sortedPlayers =
-                    repo.getPlayersList(context.applicationContext)?.data?.sortedWith(
-                        compareByDescending<PlayerInfo?> { it?.totalPlay }.thenBy { it?.name })
-
-                _playersList.postValue(sortedPlayers)
-            }
+            repo.getPlayerInfo()
         }
     }
 

@@ -2,10 +2,14 @@ package com.varma.hemanshu.starwars_blasters.repository
 
 import android.content.Context
 import com.google.gson.Gson
+import com.varma.hemanshu.starwars_blasters.model.MatchDetailsResponse
+import com.varma.hemanshu.starwars_blasters.model.PlayersInfoResponse
+import com.varma.hemanshu.starwars_blasters.utils.UiState
+import retrofit2.Response
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
-open class BaseRepo {
+interface StarWarsRepo {
 
     fun <T> fetchDataFromAssets(context: Context, fileName: String, classOfT: Class<T>): T? {
         return try {
@@ -28,4 +32,8 @@ open class BaseRepo {
             else -> 0
         }
     }
+
+    suspend fun getPlayerInfo(): UiState<PlayersInfoResponse>
+
+    suspend fun getMatchDetailsInfo(): UiState<MatchDetailsResponse>
 }
