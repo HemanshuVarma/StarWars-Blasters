@@ -50,7 +50,6 @@ class PointsTableFragment : Fragment() {
         binding.rvPtsTable.layoutManager = LinearLayoutManager(context)
         setAdapter()
         setObservers()
-        viewModel.getPlayersData()
     }
 
     private fun setObservers() {

@@ -1,7 +1,7 @@
 package com.varma.hemanshu.starwars_blasters.repository
 
 import android.content.Context
-import com.varma.hemanshu.starwars_blasters.model.MatchDetailsResponse
+import com.varma.hemanshu.starwars_blasters.model.MatchDetails
 import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
 import com.varma.hemanshu.starwars_blasters.remote.SWApiService
 import com.varma.hemanshu.starwars_blasters.utils.UiState
@@ -24,7 +24,7 @@ class StarWarsRepoImpl(private val apiService: SWApiService) : StarWarsRepo {
         }
     }
 
-    override suspend fun getMatchDetailsInfo(): UiState<MatchDetailsResponse> {
+    override suspend fun getMatchDetailsInfo(): UiState<List<MatchDetails>> {
         return try {
             val response = apiService.getMatchDetails()
             if (response.isSuccessful) {
@@ -81,5 +81,13 @@ class StarWarsRepoImpl(private val apiService: SWApiService) : StarWarsRepo {
 
         return playersList
     }*/
+
+    /*    fun calculatePoints(score1: Int?, score2: Int?): Int {
+            return when {
+                (score1 ?: 0) > (score2 ?: 0) -> 3
+                (score1 ?: 0) == (score2 ?: 0) -> 1
+                else -> 0
+            }
+        }*/
 
 }
