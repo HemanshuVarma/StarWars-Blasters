@@ -1,5 +1,6 @@
 package com.varma.hemanshu.starwars_blasters.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,8 @@ import com.varma.hemanshu.starwars_blasters.repository.StarWarsRepo
 import com.varma.hemanshu.starwars_blasters.utils.UiState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+
+const val TAG = "StarWarsViewModel"
 
 class StarWarsViewModel(
     private val repo: StarWarsRepo
@@ -51,12 +54,32 @@ class StarWarsViewModel(
     private fun getData() {
         viewModelScope.launch {
             _playersInfoList.value = UiState.Loading
+            _matchDetails.value = UiState.Loading
 
-            val players = async { repo.getPlayerInfo() }
-            val matches = async { repo.getMatchDetailsInfo() }
+            val playersDeferred = async { repo.getPlayerInfo() }
+            val matchesDeferred = async { repo.getMatchDetailsInfo() }
 
-            _playersInfoList.value = players.await()
-            _matchDetails.value = matches.await()
+            val players = playersDeferred.await()
+            val matchList = matchesDeferred.await()
+
+            playersMatchList(players, matchList)
+
+            _playersInfoList.value = players
+            _matchDetails.value = matchList
+
+        }
+    }
+
+    private fun playersMatchList(
+        playersList: UiState<List<PlayerInfo>>,
+        matchList: UiState<List<MatchDetails>>
+    ) {
+        Log.d(TAG, "Players List: $playersList")
+        Log.d(TAG, "Match List: $matchList")
+
+        if (playersList is UiState.Success && matchList is UiState.Success) {
+            val playersInfoList = playersList.data
+            val matchDetailsList = matchList.data
         }
     }
 

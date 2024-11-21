@@ -1,41 +1,45 @@
 package com.varma.hemanshu.starwars_blasters.repository
 
-import android.content.Context
 import com.varma.hemanshu.starwars_blasters.model.MatchDetails
 import com.varma.hemanshu.starwars_blasters.model.PlayerInfo
 import com.varma.hemanshu.starwars_blasters.remote.SWApiService
 import com.varma.hemanshu.starwars_blasters.utils.UiState
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class StarWarsRepoImpl(private val apiService: SWApiService) : StarWarsRepo {
 
     override suspend fun getPlayerInfo(): UiState<List<PlayerInfo>> {
-        return try {
-            val response = apiService.getPlayerInfo()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    UiState.Success(it)
-                } ?: UiState.Error("No Data Available")
-            } else {
-                UiState.Error("Error: ${response.code()}")
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getPlayerInfo()
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        UiState.Success(it)
+                    } ?: UiState.Error("No Data Available")
+                } else {
+                    UiState.Error("Error: ${response.code()}")
+                }
+            } catch (exception: Exception) {
+                UiState.Error("Exception: ${exception.message}")
             }
-        } catch (exception: Exception) {
-            UiState.Error("Exception: ${exception.message}")
         }
     }
 
     override suspend fun getMatchDetailsInfo(): UiState<List<MatchDetails>> {
-        return try {
-            val response = apiService.getMatchDetails()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    UiState.Success(it)
-                } ?: UiState.Error("No Data Available")
-            } else {
-                UiState.Error("Error: ${response.code()}")
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getMatchDetails()
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        UiState.Success(it)
+                    } ?: UiState.Error("No Data Available")
+                } else {
+                    UiState.Error("Error: ${response.code()}")
+                }
+            } catch (exception: Exception) {
+                UiState.Error("Exception: ${exception.message}")
             }
-        } catch (exception: Exception) {
-            UiState.Error("Exception: ${exception.message}")
         }
     }
 

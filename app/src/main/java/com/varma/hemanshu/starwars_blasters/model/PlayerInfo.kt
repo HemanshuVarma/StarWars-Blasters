@@ -5,6 +5,6 @@ data class PlayerInfo(
     val name: String,
     val icon: String,
 
-    var totalPlay: Int? = null,
-    var listGamePlay: List<MatchDetails?>? = ArrayList()
+    var totalPlay: Int = 0,
+    var listGamePlay: List<MatchDetails> = ArrayList()
 )

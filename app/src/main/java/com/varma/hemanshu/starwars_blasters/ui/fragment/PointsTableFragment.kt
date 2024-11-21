@@ -65,7 +65,6 @@ class PointsTableFragment : Fragment() {
                 }
 
                 is UiState.Success -> {
-
                 }
 
                 is UiState.Error -> {
